@@ -34,7 +34,7 @@ main div{
     flex-direction: column;
 }
 
-main div h1, main div p, main div button{
+main div h2, main div p, main div button{
     display: flex;
     justify-content: center;
 }
