@@ -1,0 +1,48 @@
+/* header */
+header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#view-highscore, #timer{
+    display: flex;
+    width: 50%;
+    padding-top: 1%;
+}
+
+#view-highscore{
+    justify-content: flex-start;
+    padding-left: 5%;
+}
+
+#timer{
+    justify-content: flex-end;
+    padding-right: 5%;
+}
+
+/* main part */
+main, main div{
+    display: flex;
+    flex-direction: row;
+    padding-top: 2%;
+    width: 100%;
+}
+
+main div{
+    display:flex;
+    flex-direction: column;
+}
+
+main div h1, main div p, main div button{
+    display: flex;
+    justify-content: center;
+}
+
+p{
+    padding-top: 1%;
+}
+
+
+
+
