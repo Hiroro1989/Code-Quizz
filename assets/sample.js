@@ -12,7 +12,7 @@ var quiz = [
         answer: "<br>",
     },
     {
-        question: "whats does css stand for?",
+        question: "What does css stand for?",
         choices: ["Cascading System Style","Cascading Style Sheet","Cascading style System"],
         answer: "Cascading Style Sheet",
     }
@@ -20,38 +20,61 @@ var quiz = [
 
 
 var quizQuestionsEl = document.createElement("h2");
-var quizChoicesEl = document.createElement("button");
+var quizChoicesEl = document.createElement("ul");
+quizzEl.appendChild(quizQuestionsEl);
+quizzEl.appendChild(quizChoicesEl);
+
+
 
 var currentQuestion = 0;
+var points = 0;
 
-var chooseOption = function(){
+
+var chooseOption = function(chosen){
+    
+    var correctOptionIndex = quiz[currentQuestion].answer;
+    var correctOption = quiz[currentQuestion].choices[correctOptionIndex];
+
+    if (chosen == correctOption){
+        points +=10;
+    }
+    //else{10 substract}
+
+    // console.log("10pts");
     currentQuestion++;
-    quizzEl.innerHTML = "";
-    putQuestion(current);
-    putOptions(currentQuestion);
-
-
+    quizChoicesEl.innerHTML="";
+    putQuestion();
+    putChoices();
 }
 
-var putQuestion = function(questionIndex){
-    quizQuestionsEl.textContent = quiz[questionIndex].question;
-
+var putQuestion = function(){
+    quizQuestionsEl.textContent = quiz[currentQuestion].question;
+    
 }
 
-var putOptions =function(questionIndex){
-    var choices = quiz[questionIndex].choices;
+
+var putChoices = function(){
+    
+    var choices = quiz[currentQuestion].choices;
+
     for (var i =0; i<choices.length; i++){
-        var option = choices;
+        var option = choices[i];
         var buttonEl = document.createElement('button');
         buttonEl.textContent = option;
-        buttonEl.addEventListener("click", function(e) {chooseOption()});
-        
         quizChoicesEl.appendChild(buttonEl);
+
+        buttonEl.addEventListener("click", 
+        function(e) {
+            chooseOption (e.target.innerText);
+        }
+        );
+        
     }
 }
 
 putQuestion();
-putOptions();
+putChoices();
+
 
 
 

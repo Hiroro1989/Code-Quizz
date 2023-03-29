@@ -24,26 +24,26 @@ var highScoreEl = document.createElement("h2");
 var toStartEl = document.createElement("button");
 
 // point
-var point = 0;
+// var point = 0;
 
 
-var questions = [
-    {
-        question: "What does HTML stand for?",
-        choices: ["HyperText Markup Language", "HyperText Makeup Language", "Home Made Language"],
-        answer: "HyperText Markup Language",
-    },
-    {
-        question: "What is the correct HTML element for inserting a line break? ",
-        choices: ["<br>", "<li>", "<break>"],
-        answer: "<br>",
-    },
-    {
-        question: "whats does css stand for?",
-        choices: ["Cascading System Style","Cascading Style Sheet","Cascading style System"],
-        answer: "Cascading Style Sheet",
-    }
-]
+// var questions = [
+//     {
+//         question: "What does HTML stand for?",
+//         choices: ["HyperText Markup Language", "HyperText Makeup Language", "Home Made Language"],
+//         answer: "HyperText Markup Language",
+//     },
+//     {
+//         question: "What is the correct HTML element for inserting a line break? ",
+//         choices: ["<br>", "<li>", "<break>"],
+//         answer: "<br>",
+//     },
+//     {
+//         question: "whats does css stand for?",
+//         choices: ["Cascading System Style","Cascading Style Sheet","Cascading style System"],
+//         answer: "Cascading Style Sheet",
+//     }
+// ]
 
 
 //start screen
