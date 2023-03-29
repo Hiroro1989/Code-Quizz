@@ -6,7 +6,7 @@ var ulEl = document.createElement("ul");
 //start screen
 var startEl = document.createElement("button");
 var titleEl = document.createElement("h2");
-var explonationEl = document.createElement("p");
+var explanationEl = document.createElement("p");
 var pEl = document.createElement("p");
 
 //quiz 
@@ -33,10 +33,20 @@ var quizChoicesEl = document.createElement("ul");
 quizzEl.appendChild(quizQuestionsEl);
 quizzEl.appendChild(quizChoicesEl);
 
+//inputInfo screen var
+var endMessageEl = document.createElement("h2");
+var scoreIsEl = document.createElement("p");
+var initialEl = document.createElement("input");
+var yourInitialIsEl = document.createElement("p");
+var submitEl = document.createElement("button");
+
+//highscore
+var highScoreEl = document.createElement("h2");
+
 
 
 //timer
-var secondLeft = 60;
+var secondLeft = 120;
 
 function setTime (){
   var timerInterval = setInterval(function () {
@@ -45,19 +55,19 @@ function setTime (){
   
       if (secondLeft < 1) {
         clearInterval(timerInterval); //function change to the score
-      //   inputInfo();
+        inputInfo();
       }
     }, 1000);
   }
 
-  //initial screen
+  //init screen
 
 function init() {
     quizzEl.innerHTML = "";
     quizzEl.appendChild(titleEl);
     titleEl.textContent = "Coding Quiz Challenge";
-    quizzEl.appendChild(explonationEl);
-    explonationEl.textContent =
+    quizzEl.appendChild(explanationEl);
+    explanationEl.textContent =
       "Try to answer the following code-related qustions within the time limit. Keep in mind incorrect answer will penalize your scoretime  by ten sconds!";
     //append button
     quizzEl.appendChild(ulEl);
@@ -84,23 +94,27 @@ var chooseOption = function(chosen){
     
     var correctOptionIndex = quiz[currentQuestion].choices.indexOf(quiz[currentQuestion].answer);
     var correctOption = quiz[currentQuestion].choices[correctOptionIndex];
-    var messageEl = document.createElement("span");
+
+    //need to add correct message
 
     if (chosen == correctOption){
         points +=10;
-        quizzEl.append(messageEl);
-        messageEl.textContent = "Correct!"
         console.log("correct")
     }else{
         secondLeft -=10;
         console.log("incorrect!")
     }
 
-    // console.log("10pts");
-    currentQuestion++;
-    quizChoicesEl.innerHTML="";
-    putQuestion();
-    putChoices();
+    //check how many questions leave
+    if (currentQuestion == quiz.length - 1) {
+        inputInfo();
+        secondLeft = 1;
+    } else {
+        currentQuestion++;
+        quizChoicesEl.innerHTML="";
+        putQuestion();
+        putChoices();
+    }
 }
 
 var putQuestion = function(){
@@ -128,3 +142,71 @@ var putChoices = function(){
     }
 }
 
+var initial = "";
+var initials =[];
+
+function inputInfo() {
+    quizzEl.innerHTML = "";
+  
+    quizzEl.appendChild(endMessageEl);
+    endMessageEl.textContent = "All done!";
+    quizzEl.appendChild(scoreIsEl);
+    scoreIsEl.textContent = "Your score is " + points +" Points!"; //score
+  
+    quizzEl.appendChild(yourInitialIsEl);
+    yourInitialIsEl.textContent = "Your Initial: ";
+  
+    quizzEl.appendChild(initialEl);
+    initial = quizzEl.appendChild(initialEl); //inital var
+    initialEl.setAttribute("type", "text");
+    
+  
+    quizzEl.appendChild(submitEl);
+    submitEl.textContent = "Submit";
+    submitEl.setAttribute = ("id", "submit");
+
+  }
+
+   submitEl.addEventListener('click', () => {
+    quizzEl.innerHTML = "";
+    saveScore();
+    highScore();
+}
+   )
+
+var highScores;
+
+   function saveScore(){
+    // Create an object to store the user's initials and score
+  var userScore = {
+      initials: initials.value,
+      score: points,
+    };
+  
+    // Get the existing scores from local storage or create an empty array if there are no existing scores
+    highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+  
+    // Add the new score to the array
+    highScores.push(userScore);
+  
+    // Sort the scores in descending order by score
+    highScores.sort(function(a, b) {
+      return b.score - a.score;
+    });
+  
+    // Save the updated high scores to local storage
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+  }
+
+function highScore(){
+    quizzEl.append(highScoreEl);
+    highScoreEl.textContent = "High Scores!";
+    
+for (var i = 0; i<initials.length; i++){
+    initial =initials[i];
+    var li = document.createElement("li");
+    li.textContent = initials;
+
+}
+
+}
