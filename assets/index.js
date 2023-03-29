@@ -77,9 +77,6 @@ startEl.addEventListener("click", function setTime() {
   }, 1000);
 });
 
-function setQuiz(){
-
-}
 
 //quizz is done
 function inputInfo() {
@@ -116,7 +113,7 @@ function inputInfo() {
 
 
 init();
-setTime();
+// setTime();
 inputInfo();
 
 
