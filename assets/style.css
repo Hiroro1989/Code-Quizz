@@ -1,14 +1,63 @@
 /* header */
+body{
+    background-color: rgb(18, 3, 17);
+    display: flex;
+    justify-content: center;
+}
+
+
+#container{
+    width: 60%;
+    height: 90vh;
+}
+
+a{
+    color: white;
+}
+
 header{
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: 10vw;
+    color: white;
 }
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+    background-color:white;
+    height: 60vh;
+}
+
+
+
+ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    flex-direction: column;
+    height: 20%;
+}
+
+h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+}
+
+
+
+
 
 #view-highscore, #timer{
     display: flex;
     width: 50%;
     padding-top: 1%;
+    align-items: center;
 }
 
 #view-highscore{
@@ -21,8 +70,14 @@ header{
     padding-right: 5%;
 }
 
+@media screen and (max-width: 767px) {
+    #container{
+        width: 80%;
+    }
+}
+
 /* main part */
-main, main div{
+/* main, main div{
     display: flex;
     flex-direction: row;
     padding-top: 2%;
@@ -40,8 +95,8 @@ main div h2, main div p, main div button{
 }
 
 p{
-    padding-top: 1%;
-}
+    padding: 1%;
+} */
 
 
 

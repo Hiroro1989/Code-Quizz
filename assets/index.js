@@ -126,3 +126,8 @@ inputInfo();
 // quizz shows
 //as soon as timer becomes 0
 //score part
+
+
+
+
+//    highScores = JSON.parse(localStorage.getItem("highScores")) || [];

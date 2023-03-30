@@ -88,6 +88,8 @@ function init() {
   //quizzPart
 var currentQuestion = 0;
 var points = 0;
+var correctOrIncorrectEl = document.createElement("h3"); 
+var correctOrIncorrect;
 
 
 var chooseOption = function(chosen){
@@ -100,9 +102,11 @@ var chooseOption = function(chosen){
     if (chosen == correctOption){
         points +=10;
         console.log("correct")
+        correctOrIncorrect.textContent = "Correct!";
     }else{
         secondLeft -=10;
         console.log("incorrect!")
+        correctOrIncorrect.textContent = "Incorrect!";
     }
 
     //check how many questions leave
@@ -112,12 +116,18 @@ var chooseOption = function(chosen){
     } else {
         currentQuestion++;
         quizChoicesEl.innerHTML="";
+        // clearCorrect();
         putQuestion();
         putChoices();
     }
 }
 
+// function clearCorrect (){
+//     body.innerHTML.addEventListener("click", () => {correctOrIncorrect = "" });
+// }
+
 var putQuestion = function(){
+    quizzEl.innerHTML =""; //
     quizQuestionsEl.textContent = quiz[currentQuestion].question;
     quizzEl.appendChild(quizQuestionsEl);    
 }
@@ -140,11 +150,10 @@ var putChoices = function(){
         );
         quizzEl.appendChild(quizChoicesEl);
     }
+    correctOrIncorrect = quizzEl.appendChild(correctOrIncorrectEl);
+    
 }
-
-var initial = "";
-var initials =[];
-
+var initial ="";
 function inputInfo() {
     quizzEl.innerHTML = "";
   
@@ -157,13 +166,13 @@ function inputInfo() {
     yourInitialIsEl.textContent = "Your Initial: ";
   
     quizzEl.appendChild(initialEl);
-    initial = quizzEl.appendChild(initialEl); //inital var
+    initial =  initialEl.value.trim() ;
     initialEl.setAttribute("type", "text");
     
   
     quizzEl.appendChild(submitEl);
     submitEl.textContent = "Submit";
-    submitEl.setAttribute = ("id", "submit");
+    submitEl.setAttribute("id", "submit");;
 
   }
 
@@ -174,39 +183,75 @@ function inputInfo() {
 }
    )
 
-var highScores;
+var highScores = [];
 
    function saveScore(){
     // Create an object to store the user's initials and score
   var userScore = {
-      initials: initials.value,
+      initials: initial,
       score: points,
     };
-  
+
+    // localStorage.setItem("userScore",JSON.stringify(userScore));
     // Get the existing scores from local storage or create an empty array if there are no existing scores
-    highScores = JSON.parse(localStorage.getItem("highScores")) || [];
   
     // Add the new score to the array
     highScores.push(userScore);
   
     // Sort the scores in descending order by score
+    // highScores.sort(function(a, b) {
+    //   return b.score - a.score;
+    // });
+    // Save the updated high scores to local storage
+   
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+
+    console.log(userScore);
+
+  }
+
+function highScore() {
+    quizzEl.innerHTML = "";
+  
+    highScoreEl.textContent = "High Scores";
+    quizzEl.appendChild(highScoreEl);
+  
+    // Get the existing high scores from local storage or create an empty array if there are no existing scores
+    highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    // Sort the scores in descending order by score
     highScores.sort(function(a, b) {
       return b.score - a.score;
     });
+
+    // Display only the top 10 scores
+    var numScores = Math.min(highScores.length, 10);
+    for (var i = 0; i < numScores; i++) {
+      var score = highScores[i];
+      var scoreEl = document.createElement("li");
+      scoreEl.textContent = score.initials + " : " + score.score + " Points";
+      quizzEl.appendChild(scoreEl);
+    }
   
-    // Save the updated high scores to local storage
-    localStorage.setItem("highScores", JSON.stringify(highScores));
+    // Add a button to go back to the start screen
+    var goBackEl = document.createElement("button");
+    goBackEl.textContent = "Go Back";
+    quizzEl.appendChild(goBackEl);
+  
+    goBackEl.addEventListener("click", function() {
+      secondLeft = 120;
+      currentQuestion = 0;
+      points = 0;
+      init();
+    });
+  
+    // Add a button to clear the high scores
+    var clearScoresEl = document.createElement("button");
+    clearScoresEl.textContent = "Clear High Scores";
+    quizzEl.appendChild(clearScoresEl);
+  
+    clearScoresEl.addEventListener("click", function() {
+      localStorage.removeItem("highScores");
+      highScore();
+    });
   }
-
-function highScore(){
-    quizzEl.append(highScoreEl);
-    highScoreEl.textContent = "High Scores!";
-    
-for (var i = 0; i<initials.length; i++){
-    initial =initials[i];
-    var li = document.createElement("li");
-    li.textContent = initials;
-
-}
-
-}
+  
