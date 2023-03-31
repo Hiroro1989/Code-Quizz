@@ -112,7 +112,7 @@ var quiz = [
       answer: "<header>",
   },
 ];
-
+//questions h2 and choices ul
 var quizQuestionsEl = document.createElement("h2");
 var quizChoicesEl = document.createElement("ul");
 quizzEl.appendChild(quizQuestionsEl);
@@ -220,32 +220,23 @@ nextButtonEl.addEventListener("click", () => {
     nextButtonEl.style.display = 'none';
     correctOrIncorrect.textContent = "";
 
-    // nextButtonEl.textContent = "";
   } else {
     currentQuestion++;
     quizChoicesEl.innerHTML = "";
     nextButtonEl.style.display = 'none';
     correctOrIncorrect.textContent = "";
 
-
-    // nextButtonEl.textContent = "";
-
-    // clearCorrect();
     putQuestion();
     putChoices();
   }
 });
-
-// function clearCorrect (){
-//     body.innerHTML.addEventListener("click", () => {correctOrIncorrect = "" });
-// }
-
+//set the questions
 var putQuestion = function () {
-  quizzEl.innerHTML = ""; //
+  quizzEl.innerHTML = ""; 
   quizQuestionsEl.textContent = quiz[currentQuestion].question;
   quizzEl.appendChild(quizQuestionsEl);
 };
-
+//at the same time set the choices
 var putChoices = function () {
   var choices = quiz[currentQuestion].choices;
 
@@ -265,6 +256,7 @@ var putChoices = function () {
   correctOrIncorrect = quizzEl.appendChild(correctOrIncorrectEl);
   nextButton = quizzEl.appendChild(nextButtonEl);
 };
+//imput initial screen
 var initial = "";
 function inputInfo() {
   quizzEl.innerHTML = "";
